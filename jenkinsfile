@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+ 
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "M3"
+    }
+ 
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the repository
+git 'https://github.com/nileshrothe/helloworld.git/'
+            }
+        }
+ 
+        stage('Build') {
+            steps {
+                // Build the project using Maven
+                sh 'mvn clean package'
+            }
+        }
+ 
+        stage('Test') {
+            steps {
+                // Run unit tests
+                sh 'mvn test'
+            }
+        }
+ 
+        stage('Deploy') {
+            steps {
+                // Deploy or run the application
+                sh 'java -jar target/hello-world-java.jar'
+            }
+        }
+    }
+}
+has context menu
